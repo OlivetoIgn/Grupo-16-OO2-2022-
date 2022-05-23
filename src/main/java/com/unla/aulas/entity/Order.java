@@ -16,10 +16,15 @@ public abstract class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "date")
     private LocalDate date;
+    @Column(name = "shift")//Turno
     private String shift;
+    @Column(name = "students_quantity")
     private int studentsQuantity;
+    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Subject subject;
+    @Column(name = "observations")
     private String observations;
 
     public Order(LocalDate date, String shift, int studentsQuantity, Subject subject, String observations) {

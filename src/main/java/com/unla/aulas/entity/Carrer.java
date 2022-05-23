@@ -15,7 +15,7 @@ public class Carrer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column()
+    @Column(name = "carrer")
     private String carrer;
     @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Department department;

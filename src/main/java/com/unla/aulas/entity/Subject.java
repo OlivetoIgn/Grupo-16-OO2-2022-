@@ -1,9 +1,27 @@
 package com.unla.aulas.entity;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.*;
+
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@Table(name="subject")
 public class Subject {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "subject_code")
     private int subjectCode;
+    @Column(name = "subject")
     private String subject;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "carrer_id")
     private Carrer carrer;
 
     public Subject(int subjectCode, String subject, Carrer carrer) {
