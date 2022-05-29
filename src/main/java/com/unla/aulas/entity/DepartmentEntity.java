@@ -11,14 +11,14 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @Table(name="department")
-public class Department {
+public class DepartmentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column()
     private String department;
 
-    public Department(String department) {
+    public DepartmentEntity(String department) {
         this.department = department;
     }
 

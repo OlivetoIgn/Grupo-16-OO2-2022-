@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @Table(name="subject")
-public class Subject {
+public class SubjectEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,9 +22,9 @@ public class Subject {
     private String subject;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "carrer_id")
-    private Carrer carrer;
+    private CarrerEntity carrer;
 
-    public Subject(int subjectCode, String subject, Carrer carrer) {
+    public SubjectEntity(int subjectCode, String subject, CarrerEntity carrer) {
         this.subjectCode = subjectCode;
         this.subject = subject;
         this.carrer = carrer;
@@ -54,11 +54,11 @@ public class Subject {
         this.subject = subject;
     }
 
-    public Carrer getCarrer() {
+    public CarrerEntity getCarrer() {
         return carrer;
     }
 
-    public void setCarrer(Carrer carrer) {
+    public void setCarrer(CarrerEntity carrer) {
         this.carrer = carrer;
     }
 

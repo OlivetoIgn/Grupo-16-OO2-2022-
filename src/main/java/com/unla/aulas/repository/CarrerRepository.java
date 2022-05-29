@@ -1,7 +1,10 @@
 package com.unla.aulas.repository;
 
-import com.unla.aulas.entity.Carrer;
+import com.unla.aulas.entity.CarrerEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface CarrerRepository extends JpaRepository<Carrer, Integer> {
+@Repository
+public interface CarrerRepository extends JpaRepository<CarrerEntity, Integer> {
+    public abstract CarrerEntity findByCarrer(String carrer);
 }

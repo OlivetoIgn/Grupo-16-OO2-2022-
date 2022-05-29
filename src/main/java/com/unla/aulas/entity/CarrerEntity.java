@@ -11,16 +11,16 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @Table(name="carrer")
-public class Carrer {
+public class CarrerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(name = "carrer")
     private String carrer;
     @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Department department;
+    private DepartmentEntity department;
 
-    public Carrer(String carrer, Department department) {
+    public CarrerEntity(String carrer, DepartmentEntity department) {
         this.carrer = carrer;
         this.department = department;
     }
@@ -41,11 +41,11 @@ public class Carrer {
         this.carrer = carrer;
     }
 
-    public Department getDepartment() {
+    public DepartmentEntity getDepartment() {
         return department;
     }
 
-    public void setDepartment(Department department) {
+    public void setDepartment(DepartmentEntity department) {
         this.department = department;
     }
 
