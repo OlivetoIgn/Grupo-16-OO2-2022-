@@ -2,6 +2,8 @@ package com.unla.aulas.dto;
 
 public class DepartmentDto {
 
+    private int id;
+
     private String department;
 
     public DepartmentDto(){}
@@ -14,7 +16,16 @@ public class DepartmentDto {
         this.department = department;
     }
 
-    public DepartmentDto(String department) {
+    public DepartmentDto(int id, String department) {
         this.department = department;
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

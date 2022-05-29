@@ -19,8 +19,13 @@ public class DepartmentController {
     DepartmentService departmentService = new DepartmentService();
 
     @PostMapping("save")
-    public DepartmentEntity saveDepartment(@RequestBody DepartmentDto json){
-        return departmentService.saveDepartment(json);
+    public String saveDepartment(@RequestBody DepartmentDto json){
+        boolean resp = departmentService.saveDepartment(json);
+        if(!resp){
+            return "Ya existe el departamento " + json.getDepartment();
+        }else{
+            return "Se creo correctamente";
+        }
     }
 
     @GetMapping("query")

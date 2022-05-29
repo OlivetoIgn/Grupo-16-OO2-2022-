@@ -21,18 +21,35 @@ public class DepartmentService {
 
     public DepartmentDto getDepartment(String department){
         DepartmentEntity departmentEntity = departmentRepository.findByDepartment(department);
-        DepartmentDto departmentDto = new DepartmentDto(departmentEntity.getDepartment());
-        return departmentDto;
+        if(departmentEntity != null){
+            DepartmentDto departmentDto = new DepartmentDto(departmentEntity.getId(), departmentEntity.getDepartment());
+            return departmentDto;
+        }else{
+            return null;
+        }
+    }
+
+    public DepartmentEntity getDepartmentEntity(String department){
+        DepartmentEntity departmentEntity = departmentRepository.findByDepartment(department);
+        return departmentEntity;
     }
 
     public DepartmentDto getDepartment(int id){
         Optional<DepartmentEntity> departmentEntity = null;
         departmentEntity = departmentRepository.findById(id);
-        return new DepartmentDto(departmentEntity.get().getDepartment());
+        return new DepartmentDto(departmentEntity.get().getId(), departmentEntity.get().getDepartment());
     }
 
-    public DepartmentEntity saveDepartment(DepartmentDto departmentDto){
-        return departmentRepository.save(new DepartmentEntity(departmentDto.getDepartment()));
+    public boolean saveDepartment(DepartmentDto departmentDto){
+        DepartmentDto existDepartment = getDepartment(departmentDto.getDepartment());
+        if(existDepartment != null){
+            return false;
+        }else{
+            DepartmentEntity departmentEntity = new DepartmentEntity();
+            departmentEntity.setDepartment(departmentDto.getDepartment());
+            departmentRepository.save(departmentEntity);
+            return true;
+        }
     }
 
     public boolean deleteDepartment(int id){

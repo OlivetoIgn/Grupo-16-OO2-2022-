@@ -10,29 +10,33 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/carrer")
+@RequestMapping("/carrer/")
 public class CarrerController {
 
     @Autowired
     CarrerService carrerService;
 
-    @PostMapping("/save")
+    @PostMapping("save")
     public String saveCarrer(@RequestBody CarrerDto json){
-        carrerService.saveCarrer(json);
-        return "ok";
+        boolean resp = carrerService.saveCarrer(json);
+        if(!resp){
+            return "Ya existe la carrera " + json.getCarrer();
+        }else {
+            return "Se creo correctamente";
+        }
     }
 
-    @GetMapping( path = "/{id}")
+    @GetMapping( path = "{id}")
     public Optional<CarrerEntity> getCarrerPorId(@PathVariable("id") int id){
         return this.carrerService.getCarrer(id);
     }
 
-    @GetMapping("/query")
+    @GetMapping("query")
     public ArrayList<CarrerEntity> getCarrers(){
         return this.carrerService.getCarrers();
     }
 
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = "{id}")
     public String deleteCarrer(@PathVariable("id") int id){
         boolean ok = this.carrerService.deleteCarrer(id);
         if(ok){

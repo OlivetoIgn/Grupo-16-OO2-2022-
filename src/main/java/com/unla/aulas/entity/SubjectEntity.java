@@ -1,15 +1,15 @@
 package com.unla.aulas.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.Objects;
 
-@Entity
-@Getter
-@Setter
+@Data
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
+@Entity
 @Table(name="subject")
 public class SubjectEntity {
 
@@ -20,55 +20,15 @@ public class SubjectEntity {
     private int subjectCode;
     @Column(name = "subject")
     private String subject;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name = "carrer_id")
     private CarrerEntity carrer;
 
-    public SubjectEntity(int subjectCode, String subject, CarrerEntity carrer) {
-        this.subjectCode = subjectCode;
-        this.subject = subject;
-        this.carrer = carrer;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getSubjectCode() {
-        return subjectCode;
-    }
-
-    public void setSubjectCode(int subjectCode) {
-        this.subjectCode = subjectCode;
-    }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
-
-    public CarrerEntity getCarrer() {
-        return carrer;
-    }
-
-    public void setCarrer(CarrerEntity carrer) {
-        this.carrer = carrer;
-    }
-
     @Override
-    public String toString() {
-        return "Subject{" +
-                "id=" + id +
-                ", subjectCode=" + subjectCode +
-                ", subject='" + subject + '\'' +
-                ", carrer=" + carrer +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SubjectEntity that = (SubjectEntity) o;
+        return subjectCode == that.subjectCode && Objects.equals(subject, that.subject) && Objects.equals(carrer, that.carrer);
     }
 }

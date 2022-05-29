@@ -1,5 +1,6 @@
 package com.unla.aulas.controller;
 
+import com.unla.aulas.dto.SubjectDto;
 import com.unla.aulas.entity.SubjectEntity;
 import com.unla.aulas.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,28 +10,32 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/subject")
+@RequestMapping("/subject/")
 public class SubjectController {
 
     @Autowired
     SubjectService subjectService;
 
-    @PostMapping("/save")
-    public SubjectEntity saveSubject(@RequestBody SubjectEntity json){
-        return this.subjectService.saveSubject(json);
+    @PostMapping("save")
+    public String saveSubject(@RequestBody SubjectEntity json){
+        boolean resp = subjectService.saveSubject(json);
+        if(resp){
+            return "Se ha creado correctamente";
+        }
+        return "No se pudo crear la materia " + json.getSubject();
     }
 
-    @GetMapping("/query")
-    public ArrayList<SubjectEntity> getSubjects(){
-        return this.subjectService.getSubjects();
+    @GetMapping("query")
+    public ArrayList<SubjectDto> getSubjects(){
+        return subjectService.getSubjects();
     }
 
-    @GetMapping(path = "/{id}")
-    public Optional<SubjectEntity> getSubject(@PathVariable("id") int id){
+    @GetMapping(path = "{id}")
+    public SubjectDto getSubject(@PathVariable("id") int id){
         return this.subjectService.getSubjectById(id);
     }
 
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = "{id}")
     public String deleteSubject(@PathVariable("id") int id){
         boolean ok = this.subjectService.deleteSubject(id);
         if(ok){

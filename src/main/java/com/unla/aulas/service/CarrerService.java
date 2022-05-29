@@ -16,13 +16,25 @@ public class CarrerService {
 
     @Autowired
     CarrerRepository carrerRepository;
+    @Autowired
     DepartmentService departmentService = new DepartmentService();
 
-    public CarrerEntity saveCarrer(CarrerDto carrer){
-        DepartmentDto departmentDto = departmentService.getDepartment(carrer.getDepartment().getDepartment());
-        DepartmentEntity departmentEntity = new DepartmentEntity(departmentDto.getDepartment());
-        CarrerEntity carrerEntity = new CarrerEntity(carrer.getCarrer(), departmentEntity);
-        return carrerRepository.save(carrerEntity);
+    public boolean saveCarrer(CarrerDto carrer){
+        CarrerEntity existCarrer = getCarrerEntity(carrer.getCarrer());
+        if(existCarrer != null){
+            return false;
+        }
+        else {
+            DepartmentEntity departmentEntity = departmentService.getDepartmentEntity(carrer.getDepartment().getDepartment());
+            if(departmentEntity == null){
+                return false;
+            }
+            CarrerEntity carrerEntity = new CarrerEntity();
+            carrerEntity.setCarrer(carrer.getCarrer());
+            carrerEntity.setDepartment(departmentEntity);
+            carrerRepository.save(carrerEntity);
+            return true;
+        }
     }
 
     public ArrayList<CarrerEntity> getCarrers(){
@@ -31,7 +43,12 @@ public class CarrerService {
 
     public CarrerDto getCarrer(String carrer){
         CarrerEntity carrerEntity = carrerRepository.findByCarrer(carrer);
-        return new CarrerDto(carrerEntity.getCarrer(), new DepartmentDto(carrerEntity.getDepartment().getDepartment()));
+        return new CarrerDto(carrerEntity.getCarrer(), new DepartmentDto(carrerEntity.getDepartment().getId(), carrerEntity.getDepartment().getDepartment()));
+    }
+
+    public CarrerEntity getCarrerEntity(String carrer){
+        CarrerEntity carrerEntity = carrerRepository.findByCarrer(carrer);
+        return carrerEntity;
     }
 
     public Optional<CarrerEntity> getCarrer(int id){
