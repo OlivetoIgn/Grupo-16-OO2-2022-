@@ -15,7 +15,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
-
 import static com.unla.aulas.security.SecurityConstants.SIGN_UP_URL;
 
 
@@ -51,7 +50,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         source.registerCorsConfiguration("/**", config.applyPermitDefaultValues());
         //allow Authorization to be exposed
         config.setExposedHeaders(Arrays.asList("Authorization", "token"));
-
         return source;
     }
 

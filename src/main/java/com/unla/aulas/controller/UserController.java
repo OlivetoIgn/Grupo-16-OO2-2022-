@@ -26,7 +26,7 @@ public class UserController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('GOD')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public List<UserEntity> findAll()  {
 
         List<UserEntity> users = userRepository.findAll();
