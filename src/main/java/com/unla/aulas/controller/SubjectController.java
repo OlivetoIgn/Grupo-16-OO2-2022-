@@ -16,7 +16,7 @@ public class SubjectController {
     @Autowired
     SubjectService subjectService;
 
-    @PostMapping("save")
+    @PostMapping()
     public String saveSubject(@RequestBody SubjectEntity json){
         boolean resp = subjectService.saveSubject(json);
         if(resp){
@@ -25,7 +25,7 @@ public class SubjectController {
         return "No se pudo crear la materia " + json.getSubject();
     }
 
-    @GetMapping("query")
+    @GetMapping()
     public ArrayList<SubjectDto> getSubjects(){
         return subjectService.getSubjects();
     }

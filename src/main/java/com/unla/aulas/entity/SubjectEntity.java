@@ -23,12 +23,4 @@ public class SubjectEntity {
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name = "carrer_id")
     private CarrerEntity carrer;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        SubjectEntity that = (SubjectEntity) o;
-        return subjectCode == that.subjectCode && Objects.equals(subject, that.subject) && Objects.equals(carrer, that.carrer);
-    }
 }

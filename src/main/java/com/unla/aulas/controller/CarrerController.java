@@ -16,7 +16,7 @@ public class CarrerController {
     @Autowired
     CarrerService carrerService;
 
-    @PostMapping("save")
+    @PostMapping()
     public String saveCarrer(@RequestBody CarrerDto json){
         boolean resp = carrerService.saveCarrer(json);
         if(!resp){
@@ -31,7 +31,7 @@ public class CarrerController {
         return this.carrerService.getCarrer(id);
     }
 
-    @GetMapping("query")
+    @GetMapping()
     public ArrayList<CarrerEntity> getCarrers(){
         return this.carrerService.getCarrers();
     }

@@ -34,6 +34,10 @@ public class SolicitudeService {
         return (ArrayList<SolicitudeEntity>)solicitudeRepository.findSolicitudeBySolicitudeDate(solicitudeDate);
     }
 
+    /*public SolicitudeEntity getSolicitudByCode(int solicitudCode){
+        return solicitudeRepository.findSolicitudeByCode(solicitudCode);
+    }*/
+
     public boolean saveSolicitude(SolicitudeEntity solicitudeEntity){
         ArrayList<SolicitudeEntity> lstSolicitudes = getSolicitudes();
         for (SolicitudeEntity solicitude : lstSolicitudes) {

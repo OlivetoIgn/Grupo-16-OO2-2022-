@@ -38,6 +38,9 @@ public class SolicitudeEntity {
     @Column(name = "observations")
     private String observations;
 
+    @Column(name = "solicitude_code")
+    private int solicitudeCode;
+
     @Column(name = "solicitude_type")
     @Enumerated(value = EnumType.STRING)
     private SolicitudeTypeEntity typeSolicitude;
@@ -47,15 +50,4 @@ public class SolicitudeEntity {
 
     @Column(name = "end_date")
     private LocalDate endDate;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        SolicitudeEntity that = (SolicitudeEntity) o;
-        return studentsQuantity == that.studentsQuantity && Objects.equals(solicitudeDate, that.solicitudeDate)
-                && Objects.equals(shift, that.shift) && Objects.equals(subjectEntity, that.subjectEntity)
-                && Objects.equals(observations, that.observations) && typeSolicitude == that.typeSolicitude
-                && Objects.equals(startDate, that.startDate) && Objects.equals(endDate, that.endDate);
-    }
 }

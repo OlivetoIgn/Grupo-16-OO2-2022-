@@ -15,12 +15,12 @@ public class SolicitudeController {
     @Autowired
     SolicitudeService solicitudeService;
 
-    @GetMapping("query")
+    @GetMapping()
     public ArrayList<SolicitudeEntity> getSolicitudes(){
         return solicitudeService.getSolicitudes();
     }
 
-    @PostMapping("save")
+    @PostMapping()
     public String saveSolicitude(@RequestBody SolicitudeEntity solicitudeEntity){
         boolean resp = solicitudeService.saveSolicitude(solicitudeEntity);
         if(resp){

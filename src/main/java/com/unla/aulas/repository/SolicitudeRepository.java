@@ -13,4 +13,6 @@ public interface SolicitudeRepository extends JpaRepository<SolicitudeEntity, In
     public abstract ArrayList<SolicitudeEntity> findSolicitudeByShift(String shift);
 
     public abstract ArrayList<SolicitudeEntity> findSolicitudeBySolicitudeDate(LocalDate solicitudeDate);
+
+    //public abstract SolicitudeEntity findSolicitudeByCode(int solicitudeCode);
 }

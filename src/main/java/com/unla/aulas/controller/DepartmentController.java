@@ -18,7 +18,7 @@ public class DepartmentController {
     @Autowired
     DepartmentService departmentService = new DepartmentService();
 
-    @PostMapping("save")
+    @PostMapping()
     public String saveDepartment(@RequestBody DepartmentDto json){
         boolean resp = departmentService.saveDepartment(json);
         if(!resp){
@@ -28,7 +28,7 @@ public class DepartmentController {
         }
     }
 
-    @GetMapping("query")
+    @GetMapping()
     public ArrayList<DepartmentEntity> getDepartments(){
         return this.departmentService.getDepartments();
     }
