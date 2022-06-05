@@ -1,11 +1,15 @@
 package com.unla.aulas.security;
 
+import com.unla.aulas.entity.UserEntity;
+import com.unla.aulas.service.UserEntityAuthService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import javax.servlet.FilterChain;
@@ -20,8 +24,11 @@ import static com.unla.aulas.security.SecurityConstants.KEY;
 
 public class AuthorizationFilter extends BasicAuthenticationFilter {
 
-    public AuthorizationFilter(AuthenticationManager authManager) {
+
+    UserEntityAuthService userEntityAuthService;
+    public AuthorizationFilter(AuthenticationManager authManager, UserEntityAuthService userEntityAuthService ) {
         super(authManager);
+     this.userEntityAuthService = userEntityAuthService;
     }
 
     @Override
@@ -49,8 +56,10 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
                     .parseClaimsJws(token)
                     .getBody();
 
+
             if (user != null) {
-                return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+                UserDetails userDetails = userEntityAuthService.loadUserByUsername((String)user.get("sub"));
+                return new UsernamePasswordAuthenticationToken(user, null, userDetails.getAuthorities());
             }else{
                 return  null;
             }
