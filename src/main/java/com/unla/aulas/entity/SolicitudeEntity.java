@@ -25,9 +25,6 @@ public class SolicitudeEntity {
     @Column(name = "solicitude_date")
     private LocalDate solicitudeDate;
 
-    @Column(name = "shift")
-    private String shift; //turno
-
     @Column(name = "students_quantity")
     private int studentsQuantity;
 
@@ -50,4 +47,5 @@ public class SolicitudeEntity {
 
     @Column(name = "end_date")
     private LocalDate endDate;
+
 }

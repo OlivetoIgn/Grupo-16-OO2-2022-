@@ -24,11 +24,6 @@ public class SolicitudeService {
         return solicitudeRepository.findById(id);
     }
 
-    public ArrayList<SolicitudeEntity> getSolicitudeByShift(String shift){
-
-        return (ArrayList<SolicitudeEntity>)solicitudeRepository.findSolicitudeByShift(shift);
-    }
-
     public ArrayList<SolicitudeEntity> getSolicitudeBySolicitudDate(LocalDate solicitudeDate){
 
         return (ArrayList<SolicitudeEntity>)solicitudeRepository.findSolicitudeBySolicitudeDate(solicitudeDate);
