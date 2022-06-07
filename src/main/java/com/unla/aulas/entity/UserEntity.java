@@ -37,16 +37,4 @@ public class UserEntity {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleEntity> roles;
 
-	public Object getUserName() {
-		return userName;
-	}
-
-	public Object getPassword() {
-		return password;
-	}
-
-	public Set<RoleEntity> getRoles() {
-		return roles;
-	}
-
 }

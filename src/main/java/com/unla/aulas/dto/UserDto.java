@@ -9,10 +9,4 @@ import lombok.NoArgsConstructor;
 public class UserDto {
     private String userName;
     private String password;
-	public CharSequence getPassword() {
-		return password;
-	}
-	public Object getUserName() {
-		return userName;
-	}
 }

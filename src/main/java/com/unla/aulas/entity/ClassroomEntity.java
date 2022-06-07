@@ -48,10 +48,9 @@ public class ClassroomEntity {
 	
 	@Column(name="blackboard")
 	private boolean blackboard;
-	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "building_id")
-	private BuildingEntity building;
+
+
+	private String building;
 	
 	@Column(name = "classroom_type")
     @Enumerated(value = EnumType.STRING)

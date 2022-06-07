@@ -41,8 +41,14 @@ public class ReservationEntity {
 
 	@Temporal(TemporalType.DATE)
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
-	@Column(name="date")   
-    private Date date;
+	@Column(name="date_form")
+    private Date dateFrom;
+
+
+	@Temporal(TemporalType.DATE)
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+	@Column(name="date_to")
+	private Date dateTo;
 
 	@Column(name="turn")
 	private String turn;

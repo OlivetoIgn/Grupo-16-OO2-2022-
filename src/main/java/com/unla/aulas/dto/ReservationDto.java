@@ -17,7 +17,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ReservationDto {
 	private int id;
-	private Date date;
+	private Date dateFrom;
+	private Date dateTo;
 	private String turn;
 	private ClassroomDto classroom;
 }

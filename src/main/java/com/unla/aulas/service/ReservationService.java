@@ -13,7 +13,7 @@ import com.unla.aulas.entity.ReservationEntity;
 import com.unla.aulas.repository.ReservationRepository;
 
 @Service
-public class ReservationService implements IReservationService {
+public class ReservationService  {
 	@Lazy
 	@Autowired
 	private ReservationRepository reservationRepository;
@@ -26,12 +26,12 @@ public class ReservationService implements IReservationService {
 		this.reservationRepository = reservationRepository;
 	}
 
-	@Override
+
 	public ArrayList<ReservationEntity> getAllReservations() {
 		return (ArrayList<ReservationEntity>) reservationRepository.findAll();
 	}
 
-	@Override
+
 	public boolean insertOrUpdateReservation(ReservationDto reservationDto) {
 		boolean flag = true;
 		ReservationEntity reservationEntity = new ReservationEntity();
@@ -41,7 +41,8 @@ public class ReservationService implements IReservationService {
 			flag = false; 
 		}else {
 
-			reservationEntity.setDate(reservationDto.getDate());
+			reservationEntity.setDateFrom(reservationDto.getDateFrom());
+			reservationEntity.setDateTo(reservationDto.getDateTo());
 			reservationEntity.setTurn(reservationDto.getTurn());
 			reservationEntity.setClassroom(classroomEntity);
 			reservationRepository.save(reservationEntity);
@@ -52,12 +53,12 @@ public class ReservationService implements IReservationService {
 		return flag;
 	}
 
-	@Override
+
 	public ReservationEntity getReservationById(int id) {
 		return reservationRepository.findById(id);
 	}
 
-	@Override
+
 	public boolean deleteReservation(int id) {
 		try {
 			reservationRepository.deleteById(id);
