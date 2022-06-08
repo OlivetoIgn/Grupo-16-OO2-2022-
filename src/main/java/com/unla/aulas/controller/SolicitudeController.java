@@ -1,5 +1,6 @@
 package com.unla.aulas.controller;
 
+import com.unla.aulas.dto.SolicitudeDto;
 import com.unla.aulas.entity.SolicitudeEntity;
 import com.unla.aulas.service.SolicitudeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,17 +17,13 @@ public class SolicitudeController {
     SolicitudeService solicitudeService;
 
     @GetMapping()
-    public ArrayList<SolicitudeEntity> getSolicitudes(){
+    public ArrayList<SolicitudeDto> getSolicitudes(){
         return solicitudeService.getSolicitudes();
     }
 
     @PostMapping()
-    public String saveSolicitude(@RequestBody SolicitudeEntity solicitudeEntity){
-        boolean resp = solicitudeService.saveSolicitude(solicitudeEntity);
-        if(resp){
-            return "Se creo correctamente";
-        }
-        return "No se pudo crear el pedido";
+    public SolicitudeDto saveSolicitude(@RequestBody SolicitudeDto solicitudeDto){
+        return solicitudeService.saveSolicitude(solicitudeDto);
     }
 
     @GetMapping("{id}")

@@ -42,10 +42,18 @@ public class SolicitudeEntity {
     @Enumerated(value = EnumType.STRING)
     private SolicitudeTypeEntity typeSolicitude;
 
+    @Column(name = "shift_type")
+    @Enumerated(value = EnumType.STRING)
+    private ShiftEntity shiftEntity;
+
     @Column(name = "start_date")
     private LocalDate startDate;
 
     @Column(name = "end_date")
     private LocalDate endDate;
+
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinColumn(name = "classroom_id")
+    private ClassroomEntity classroomEntity;
 
 }

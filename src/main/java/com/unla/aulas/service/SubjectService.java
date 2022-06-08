@@ -58,7 +58,9 @@ public class SubjectService {
     }
 
     public Optional<SubjectEntity> getSubjectByIdEntity(int id){
-        return subjectRepository.findById(id);
+        Optional<SubjectEntity> subjectEntity = subjectRepository.findById(id);
+
+        return subjectEntity.isEmpty() ? null : subjectEntity;
     }
 
     public SubjectDto getSubjectById(int id){

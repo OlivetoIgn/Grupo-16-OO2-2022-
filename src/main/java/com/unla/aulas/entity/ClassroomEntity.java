@@ -43,20 +43,14 @@ public class ClassroomEntity {
 	@Column(name = "quantity_of_chairs")
 	private int quantityOfChairs;
 	
-	@Column(name = "quantity_of_PC")
+	@Column(name = "quantity_of_pc")
 	private int quantityOfPC;
 	
 	@Column(name="blackboard")
-	private boolean blackboard;
-
-
-	private String building;
+	private boolean isBlackboard;
 	
 	@Column(name = "classroom_type")
     @Enumerated(value = EnumType.STRING)
-    private ClassroomTypeEntity typeSolicitude;
-	
-    @OneToMany(mappedBy="classroom")
-    private List<ReservationEntity> reservations;
+    private ClassroomTypeEntity typeClassroom;
 	
 }

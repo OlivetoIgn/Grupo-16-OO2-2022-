@@ -2,60 +2,72 @@ package com.unla.aulas.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import com.unla.aulas.dto.ClassroomDto;
+import com.unla.aulas.entity.ClassroomEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import com.unla.aulas.dto.ReservationDto;
-import com.unla.aulas.entity.ClassroomEntity;
 import com.unla.aulas.entity.ReservationEntity;
 import com.unla.aulas.repository.ReservationRepository;
 
 @Service
 public class ReservationService  {
-	@Lazy
 	@Autowired
-	private ReservationRepository reservationRepository;
+	ReservationRepository reservationRepository;
 
-	@Lazy
 	@Autowired
-	private ClassroomService classroomService;
-
-	public ReservationService(ReservationRepository reservationRepository) {
-		this.reservationRepository = reservationRepository;
-	}
-
+	ClassroomService classroomService;
 
 	public ArrayList<ReservationEntity> getAllReservations() {
 		return (ArrayList<ReservationEntity>) reservationRepository.findAll();
 	}
 
 
-	public boolean insertOrUpdateReservation(ReservationDto reservationDto) {
-		boolean flag = true;
+	public ReservationDto insertOrUpdateReservation(ReservationDto reservationDto) {
 		ReservationEntity reservationEntity = new ReservationEntity();
-		ClassroomEntity classroomEntity = classroomService.getClassroomById(reservationDto.getClassroom().getId());
-		
-		if (classroomEntity == null) {
-			flag = false; 
-		}else {
+		reservationEntity.setReservationDate(reservationDto.getReservationDate());
+		reservationEntity.setShiftEntity(reservationDto.getShiftDto());
+		reservationEntity.setTaken(reservationDto.isTaken());
+		reservationEntity.setClassroomEntity(classroomService.getClassroomById(reservationDto.getClassroomDto().getId()).get());
 
-			reservationEntity.setDateFrom(reservationDto.getDateFrom());
-			reservationEntity.setDateTo(reservationDto.getDateTo());
-			reservationEntity.setTurn(reservationDto.getTurn());
-			reservationEntity.setClassroom(classroomEntity);
+		ArrayList<ReservationEntity> lstReserves = reservationRepository.findByReservationDate(reservationDto.getReservationDate());
+		if(lstReserves.isEmpty()){
 			reservationRepository.save(reservationEntity);
-			flag = true;
 		}
-
-
-		return flag;
+		for (ReservationEntity reservEnti:lstReserves) {
+			if (!reservEnti.isTaken() && !reservEnti.getShiftEntity().equals(reservationDto.getShiftDto())) {
+				deleteReservation(reservEnti.getId());
+				reservationRepository.save(reservationEntity);
+			}
+		}
+		return reservationDto;
 	}
 
 
-	public ReservationEntity getReservationById(int id) {
+	public Optional<ReservationEntity> getReservationById(int id) {
 		return reservationRepository.findById(id);
+	}
+
+	public ReservationDto getReservationDtoById(int id) {
+		Optional<ReservationEntity> reservationEntity = reservationRepository.findById(id);
+		if(reservationEntity!=null){
+			ReservationDto reservationDto = new ReservationDto();
+			reservationDto.setId(reservationEntity.get().getId());
+			reservationDto.setReservationDate(reservationEntity.get().getReservationDate());
+			reservationDto.setShiftDto(reservationEntity.get().getShiftEntity());
+			reservationDto.setTaken(reservationEntity.get().isTaken());
+			reservationDto.setClassroomDto(classroomService.getClassroomDtoById(reservationEntity.get().getClassroomEntity().getId()));
+			return reservationDto;
+		}
+		return null;
+	}
+
+	public ClassroomDto getReservationClassroom(int idClassroom){
+		return classroomService.getClassroomDtoById(idClassroom);
 	}
 
 

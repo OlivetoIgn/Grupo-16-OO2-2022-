@@ -22,5 +22,7 @@ public class ClassroomDto {
 	private int quantityOfPC;
 	private boolean blackboard;
     private ClassroomTypeEntity typeSolicitude;
-    private List<ReservationEntity> reservations;
+	public ClassroomDto(int id) {
+		this.id = id;
+	}
 }

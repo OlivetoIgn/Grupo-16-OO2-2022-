@@ -1,6 +1,7 @@
 package com.unla.aulas.controller;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,16 +17,10 @@ import com.unla.aulas.entity.ReservationEntity;
 import com.unla.aulas.service.ReservationService;
 
 @RestController
-@RequestMapping("/reservation")
+@RequestMapping("/reservation/")
 public class ReservationController {
-	private ReservationService reservationService; 
-	
-	public ReservationController() {}
-	
 	@Autowired
-	public ReservationController(ReservationService reservationService) {
-		this.reservationService = reservationService;
-	}
+	ReservationService reservationService;
 	
 	@GetMapping()
 	public ArrayList<ReservationEntity> getAll() {
@@ -33,18 +28,12 @@ public class ReservationController {
 	}
 	
 	@PostMapping()
-	public String insertOrUpdate(@RequestBody ReservationDto reservationDto) {
-		boolean response = reservationService.insertOrUpdateReservation(reservationDto);
-		String message;
-		if (!response)
-			message = "Ya existe la reservacion";
-		else
-			message = "Se creo correctamente";
-		return message;
+	public ReservationDto insertOrUpdate(@RequestBody ReservationDto reservationDto) {
+		return reservationService.insertOrUpdateReservation(reservationDto);
 	}
 	
 	@GetMapping(path = "{id}")
-	public ReservationEntity getById(@PathVariable("id") int id) {
+	public Optional<ReservationEntity> getById(@PathVariable("id") int id) {
 		return reservationService.getReservationById(id);
 	}
 	

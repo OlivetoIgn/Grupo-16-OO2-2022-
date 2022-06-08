@@ -1,30 +1,22 @@
 package com.unla.aulas.service;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
+import com.unla.aulas.dto.ClassroomDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import com.unla.aulas.entity.ClassroomEntity;
-import com.unla.aulas.entity.ReservationEntity;
 import com.unla.aulas.repository.ClassroomRepository;
 
 @Service
 public class ClassroomService  {
-    @Lazy
     @Autowired
-    private ClassroomRepository classroomRepository;
+    ClassroomRepository classroomRepository;
 
-
-    @Lazy
-    @Autowired
-    private ReservationService reservationService;
-
-    public ClassroomService(ClassroomRepository classroomRepository) {
-        this.classroomRepository = classroomRepository;
-    }
+    //@Autowired
+    //ReservationService reservationService = new ReservationService();
 
 
     public ArrayList<ClassroomEntity> getAllClassrooms() {
@@ -32,14 +24,27 @@ public class ClassroomService  {
     }
 
 
-    public boolean insertOrUpdateClassroom(ClassroomEntity classroomEntity) {
-        classroomRepository.save(classroomEntity);
-        return true;
+    public ClassroomEntity insertOrUpdateClassroom(ClassroomEntity classroomEntity) {
+        return classroomRepository.save(classroomEntity);
     }
 
 
-    public ClassroomEntity getClassroomById(int id) {
+    public Optional<ClassroomEntity> getClassroomById(int id) {
         return classroomRepository.findById(id);
+    }
+
+    public ClassroomDto getClassroomDtoById(int id) {
+        ClassroomDto classroomDto = new ClassroomDto();
+        Optional<ClassroomEntity> classroomEntity = classroomRepository.findById(id);
+        if(classroomEntity==null){
+            return null;
+        }
+        classroomDto.setBlackboard(classroomEntity.get().isBlackboard());
+        classroomDto.setNumber(classroomEntity.get().getNumber());
+        classroomDto.setQuantityOfPC(classroomEntity.get().getQuantityOfPC());
+        classroomDto.setQuantityOfChairs(classroomEntity.get().getQuantityOfChairs());
+        classroomDto.setId(classroomEntity.get().getId());
+        return classroomDto;
     }
 
 
@@ -52,21 +57,23 @@ public class ClassroomService  {
         }
     }
 
+    //public ClassroomEntity getClassroomEntityByNumber(int number) {
+    //    return classroomRepository.findByNumber(number);
+    //}
 
-    public ClassroomEntity getClassroomEntityById(int id) {
-        ClassroomEntity classroomEntity = classroomRepository.findById(id);
-        return classroomEntity;
-    }
-
-
-    public ClassroomEntity getClassroomEntityByNumber(int number) {
-        ClassroomEntity classroomEntity = classroomRepository.findByNumber(number);
-        return classroomEntity;
-    }
-
-    public List<ReservationEntity> getReservation(int id) {
-        return classroomRepository.findByReservations(id);
-    }
-
-
+    /*public ArrayList<ReservationDto> getClassroomReservations(int classroomId)
+    {
+        ArrayList<ReservationDto> lstReservations = new ArrayList<>();
+        ClassroomEntity classroomEntity = getClassroomEntityById(classroomId);
+        for (ReservationEntity reservation: classroomEntity.getReservations()) {
+            ReservationDto reservationDto = new ReservationDto();
+            reservationDto.setDateFrom(reservation.getDateFrom());
+            reservationDto.setDateTo(reservation.getDateTo());
+            reservationDto.setTaken(reservation.isTaken());
+            reservationDto.setTurn(reservation.getTurn());
+            reservationDto.setId(reservation.getId());
+            lstReservations.add(reservationDto);
+        }
+        return lstReservations;
+    }*/
 }
