@@ -29,9 +29,9 @@ public class SolicitudeService {
         return (ArrayList<SolicitudeEntity>) solicitudeRepository.findAll();
     }
 
-    public ArrayList<SolicitudeDto> getSolicitudes(){
+    public ArrayList<SolicitudeEntity> getSolicitudes(){
         List<SolicitudeEntity> lstSolicitudEntities = solicitudeRepository.findAll();
-        List<SolicitudeDto> lstSolicitudDto = new ArrayList<>();
+        /*List<SolicitudeDto> lstSolicitudDto = new ArrayList<>();
         for (SolicitudeEntity solicitudEnt: lstSolicitudEntities) {
             SolicitudeDto solicitudeDto = new SolicitudeDto();
             solicitudeDto.setSolicitudeCode(solicitudEnt.getSolicitudeCode());
@@ -45,8 +45,8 @@ public class SolicitudeService {
             solicitudeDto.setSubjectDto(new SubjectDto(solicitudEnt.getId()));
             solicitudeDto.setTypeSolicitude(solicitudEnt.getTypeSolicitude());
             lstSolicitudDto.add(solicitudeDto);
-        }
-        return (ArrayList<SolicitudeDto>) lstSolicitudDto;
+        }*/
+        return (ArrayList<SolicitudeEntity>) solicitudeRepository.findAll();
     }
 
     public Optional<SolicitudeEntity> getSolicitudeById(int id){

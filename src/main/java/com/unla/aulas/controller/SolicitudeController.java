@@ -17,7 +17,7 @@ public class SolicitudeController {
     SolicitudeService solicitudeService;
 
     @GetMapping()
-    public ArrayList<SolicitudeDto> getSolicitudes(){
+    public ArrayList<SolicitudeEntity> getSolicitudes(){
         return solicitudeService.getSolicitudes();
     }
 
