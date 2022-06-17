@@ -28,7 +28,7 @@ public class ReservationController {
 	}
 	
 	@PostMapping()
-	public ReservationDto insertOrUpdate(@RequestBody ReservationDto reservationDto) {
+	public ReservationEntity insertOrUpdate(@RequestBody ReservationEntity reservationDto) {
 		return reservationService.insertOrUpdateReservation(reservationDto);
 	}
 	

@@ -27,12 +27,12 @@ public class ReservationService  {
 	}
 
 
-	public ReservationDto insertOrUpdateReservation(ReservationDto reservationDto) {
+	/*public ReservationDto insertOrUpdateReservation(ReservationDto reservationDto) {
 		ReservationEntity reservationEntity = new ReservationEntity();
 		reservationEntity.setReservationDate(reservationDto.getReservationDate());
 		reservationEntity.setShiftEntity(reservationDto.getShiftDto());
 		reservationEntity.setTaken(reservationDto.isTaken());
-		reservationEntity.setClassroomEntity(classroomService.getClassroomById(reservationDto.getClassroomDto().getId()).get());
+		reservationEntity.setClassroomEntity(classroomService.getClassroomById(reservationDto.getClassroomDto().getId()));
 
 		ArrayList<ReservationEntity> lstReserves = reservationRepository.findByReservationDate(reservationDto.getReservationDate());
 		if(lstReserves.isEmpty()){
@@ -45,6 +45,26 @@ public class ReservationService  {
 			}
 		}
 		return reservationDto;
+	}*/
+
+	public ReservationEntity insertOrUpdateReservation(ReservationEntity reservationEntity) {
+		/*ReservationEntity reservationEntity = new ReservationEntity();
+		reservationEntity.setReservationDate(reservationDto.getReservationDate());
+		reservationEntity.setShiftEntity(reservationDto.getShiftDto());
+		reservationEntity.setTaken(reservationDto.isTaken());
+		reservationEntity.setClassroomEntity(classroomService.getClassroomById(reservationDto.getClassroomDto().getId()).get());
+*/
+		ArrayList<ReservationEntity> lstReserves = reservationRepository.findByReservationDate(reservationEntity.getReservationDate());
+		if(lstReserves.isEmpty()){
+			reservationRepository.save(reservationEntity);
+		}
+		for (ReservationEntity reservEnti:lstReserves) {
+			if (!reservEnti.isTaken() && !reservEnti.getShiftEntity().equals(reservationEntity.getShiftEntity())) {
+				deleteReservation(reservEnti.getId());
+				reservationRepository.save(reservationEntity);
+			}
+		}
+		return reservationEntity;
 	}
 
 

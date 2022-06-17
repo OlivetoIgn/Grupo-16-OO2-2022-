@@ -41,7 +41,7 @@ public class ReservationEntity {
 	@Column(name = "istaken")
 	private boolean isTaken;
 
-	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "classroom_id")
 	private ClassroomEntity classroomEntity;
 

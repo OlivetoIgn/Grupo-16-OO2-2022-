@@ -1,6 +1,7 @@
 package com.unla.aulas.service;
 
 import com.unla.aulas.dto.*;
+import com.unla.aulas.entity.ReservationEntity;
 import com.unla.aulas.entity.SolicitudeEntity;
 import com.unla.aulas.repository.SolicitudeRepository;
 import org.apache.tomcat.jni.Local;
@@ -63,7 +64,7 @@ public class SolicitudeService {
         return solicitudeRepository.findSolicitudeByCode(solicitudCode);
     }*/
 
-    public SolicitudeDto saveSolicitude(SolicitudeDto solicitudeDto){
+    /*public SolicitudeDto saveSolicitude(SolicitudeDto solicitudeDto){
         SolicitudeEntity solicitudeEntity = new SolicitudeEntity();
         solicitudeEntity.setSolicitudeCode(solicitudeDto.getSolicitudeCode());
         solicitudeEntity.setSolicitudeDate(solicitudeDto.getSolicitudeDate());
@@ -102,6 +103,49 @@ public class SolicitudeService {
         }
         solicitudeRepository.save(solicitudeEntity);
         return solicitudeDto;
+    }*/
+
+    public SolicitudeEntity insertorupdate(SolicitudeEntity solicitudeEntity){
+        /*SolicitudeEntity solicitudeEntity = new SolicitudeEntity();
+        solicitudeEntity.setSolicitudeCode(solicitudeDto.getSolicitudeCode());
+        solicitudeEntity.setSolicitudeDate(solicitudeDto.getSolicitudeDate());
+        solicitudeEntity.setObservations(solicitudeDto.getObservations());
+        solicitudeEntity.setStartDate(solicitudeDto.getStartDate());
+        solicitudeEntity.setEndDate(solicitudeDto.getEndDate());
+        solicitudeEntity.setShiftEntity(solicitudeDto.getShiftDto());
+        solicitudeEntity.setStudentsQuantity(solicitudeDto.getStudentsQuantity());
+        solicitudeEntity.setClassroomEntity(classroomService.getClassroomById(solicitudeDto.getClassroomDto().getId()).get());
+        solicitudeEntity.setSubjectEntity(subjectService.getSubjectByIdEntity(solicitudeDto.getSubjectDto().getId()).get());
+        ArrayList<SolicitudeEntity> lstSolicitudes = getSolicitudesEntity();
+        for (SolicitudeEntity solicitude : lstSolicitudes) {
+            if(solicitudeEntity.equals(solicitude)){
+                return null;
+            }
+        }*/
+        solicitudeEntity.setSolicitudeDate(Funciones.traerFecha());
+        solicitudeEntity.setSubjectEntity(subjectService.getSubjectEntityById(solicitudeEntity.getSubjectEntity().getId()).get());
+        solicitudeEntity.setClassroomEntity(classroomService.getClassroomEntityById(solicitudeEntity.getClassroomEntity().getId()).get());
+        ArrayList<LocalDate> lstDaysToReserve = new ArrayList<>();
+        LocalDate aux = solicitudeEntity.getStartDate();
+        if(aux.equals(solicitudeEntity.getEndDate())){
+            lstDaysToReserve.add(aux);
+        }
+        while (!aux.isEqual(solicitudeEntity.getEndDate()))
+        {
+            lstDaysToReserve.add(aux);
+            aux = Funciones.traerFechaProximo(aux, 7);
+        }
+        for(LocalDate date:lstDaysToReserve) {
+            if(Funciones.esDiaHabil(date)){
+                ReservationEntity reservationEntity = new ReservationEntity();
+                reservationEntity.setReservationDate(date);
+                reservationEntity.setShiftEntity(solicitudeEntity.getShiftEntity());
+                reservationEntity.setTaken(true);
+                reservationEntity.setClassroomEntity(solicitudeEntity.getClassroomEntity());
+                reservationService.insertOrUpdateReservation(reservationEntity);
+            }
+        }
+        return solicitudeRepository.save(solicitudeEntity);
     }
 
     public boolean deleteSolicitude(int id){

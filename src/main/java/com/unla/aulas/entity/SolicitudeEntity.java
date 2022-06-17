@@ -28,7 +28,7 @@ public class SolicitudeEntity {
     @Column(name = "students_quantity")
     private int studentsQuantity;
 
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "subject_id")
     private SubjectEntity subjectEntity;
 
@@ -52,7 +52,7 @@ public class SolicitudeEntity {
     @Column(name = "end_date")
     private LocalDate endDate;
 
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "classroom_id")
     private ClassroomEntity classroomEntity;
 

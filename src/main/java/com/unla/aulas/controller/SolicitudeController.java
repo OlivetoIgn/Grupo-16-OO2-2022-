@@ -22,8 +22,8 @@ public class SolicitudeController {
     }
 
     @PostMapping()
-    public SolicitudeDto saveSolicitude(@RequestBody SolicitudeDto solicitudeDto){
-        return solicitudeService.saveSolicitude(solicitudeDto);
+    public SolicitudeEntity saveSolicitude(@RequestBody SolicitudeEntity solicitudeEntity){
+        return solicitudeService.insertorupdate(solicitudeEntity);
     }
 
     @GetMapping("{id}")

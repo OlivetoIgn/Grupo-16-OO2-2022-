@@ -33,7 +33,7 @@ public class ClassroomController {
 
 	@GetMapping(path = "{id}")
 	public Optional<ClassroomEntity> getById(@PathVariable("id") int id) {
-		return classroomService.getClassroomById(id);
+		return classroomService.getClassroom(id);
 	}
 
 	@DeleteMapping(path = "{id}")

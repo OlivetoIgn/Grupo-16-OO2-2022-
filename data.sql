@@ -23,4 +23,9 @@ INSERT INTO subject(subject, subject_code, carrer_id) VALUES ('Introduccion a re
 INSERT INTO subject(subject, subject_code, carrer_id) VALUES ('Planificacion pasajeros 1',4441,4);
 INSERT INTO subject(subject, subject_code, carrer_id) VALUES ('Instrumentos de aire 1',5551,5);
 
+INSERT INTO classroom(blackboard, number, quantity_of_chairs, quantity_of_pc, classroom_type) VALUES (0, 1, 30, 0, 'LABORATORY');
+INSERT INTO classroom(blackboard, number, quantity_of_chairs, quantity_of_pc, classroom_type) VALUES (1, 2, 30, 0, 'TRADITIONAL');
+INSERT INTO classroom(blackboard, number, quantity_of_chairs, quantity_of_pc, classroom_type) VALUES (0, 3, 30, 30, 'LABORATORY');
+INSERT INTO classroom(blackboard, number, quantity_of_chairs, quantity_of_pc, classroom_type) VALUES (1, 4, 30, 0, 'TRADITIONAL');
+
 

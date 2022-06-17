@@ -28,8 +28,11 @@ public class ClassroomService  {
         return classroomRepository.save(classroomEntity);
     }
 
+    public Optional<ClassroomEntity> getClassroomEntityById(int id) {
+        return classroomRepository.findById(id);
+    }
 
-    public Optional<ClassroomEntity> getClassroomById(int id) {
+    public Optional<ClassroomEntity> getClassroom(int id){
         return classroomRepository.findById(id);
     }
 

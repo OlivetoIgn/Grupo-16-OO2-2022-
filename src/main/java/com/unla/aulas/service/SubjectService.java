@@ -69,6 +69,10 @@ public class SubjectService {
         return new SubjectDto(subjectEntity.get().getId(), subjectEntity.get().getSubjectCode(), subjectEntity.get().getSubject(), carrerDto);
     }
 
+    public Optional<SubjectEntity> getSubjectEntityById(int id){
+        return subjectRepository.findById(id);
+    }
+
     public SubjectEntity getSubject(String subject){
         return subjectRepository.findBySubject(subject);
     }
