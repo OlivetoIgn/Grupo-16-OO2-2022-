@@ -1,5 +1,6 @@
 package com.unla.aulas.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -48,13 +49,7 @@ public class ReservationService  {
 	}*/
 
 	public ReservationEntity insertOrUpdateReservation(ReservationEntity reservationEntity) {
-		/*ReservationEntity reservationEntity = new ReservationEntity();
-		reservationEntity.setReservationDate(reservationDto.getReservationDate());
-		reservationEntity.setShiftEntity(reservationDto.getShiftDto());
-		reservationEntity.setTaken(reservationDto.isTaken());
-		reservationEntity.setClassroomEntity(classroomService.getClassroomById(reservationDto.getClassroomDto().getId()).get());
-*/
-		ArrayList<ReservationEntity> lstReserves = reservationRepository.findByReservationDate(reservationEntity.getReservationDate());
+		/*ArrayList<ReservationEntity> lstReserves = reservationRepository.findByReservationDate(reservationEntity.getReservationDate());
 		if(lstReserves.isEmpty()){
 			reservationRepository.save(reservationEntity);
 		}
@@ -63,8 +58,8 @@ public class ReservationService  {
 				deleteReservation(reservEnti.getId());
 				reservationRepository.save(reservationEntity);
 			}
-		}
-		return reservationEntity;
+		}*/
+		return reservationRepository.save(reservationEntity);
 	}
 
 
@@ -85,12 +80,9 @@ public class ReservationService  {
 		}
 		return null;
 	}
-
-	public ClassroomDto getReservationClassroom(int idClassroom){
-		return classroomService.getClassroomDtoById(idClassroom);
+	public ArrayList<ReservationEntity> getReservationByDate(LocalDate date){
+		return reservationRepository.findByReservationDate(date);
 	}
-
-
 	public boolean deleteReservation(int id) {
 		try {
 			reservationRepository.deleteById(id);
