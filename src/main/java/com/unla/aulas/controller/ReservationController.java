@@ -3,6 +3,8 @@ package com.unla.aulas.controller;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import com.unla.aulas.entity.ClassroomEntity;
+import com.unla.aulas.service.ClassroomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +23,9 @@ import com.unla.aulas.service.ReservationService;
 public class ReservationController {
 	@Autowired
 	ReservationService reservationService;
+
+	@Autowired
+	ClassroomService classroomService;
 	
 	@GetMapping()
 	public ArrayList<ReservationEntity> getAll() {
@@ -47,5 +52,13 @@ public class ReservationController {
 			message = "No existe el id " + id;
 		return message;
 	}
-	
+
+	@GetMapping("reservationbyclass")
+	public ArrayList<ReservationEntity> getClassReservations(@RequestBody ReservationEntity reservationEntity) {
+		ClassroomEntity classroomEntity = classroomService.getClassroomEntityById(reservationEntity.getClassroomEntity().getId()).get();
+		if(classroomEntity != null){
+			return reservationService.getReservationByClassroom(classroomEntity);
+		}
+		return null;
+	}
 }

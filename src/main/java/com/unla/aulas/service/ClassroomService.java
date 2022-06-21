@@ -15,9 +15,6 @@ public class ClassroomService  {
     @Autowired
     ClassroomRepository classroomRepository;
 
-    //@Autowired
-    //ReservationService reservationService = new ReservationService();
-
 
     public ArrayList<ClassroomEntity> getAllClassrooms() {
         return (ArrayList<ClassroomEntity>) classroomRepository.findAll();
@@ -30,6 +27,10 @@ public class ClassroomService  {
 
     public Optional<ClassroomEntity> getClassroomEntityById(int id) {
         return classroomRepository.findById(id);
+    }
+
+    public ClassroomEntity getClassroomEntityByNumber(int number) {
+        return classroomRepository.findByNumber(number);
     }
 
     public Optional<ClassroomEntity> getClassroom(int id){

@@ -78,7 +78,7 @@ public class SubjectService {
     }
 
     public SubjectEntity getSubjectBySubjectCode(int subjectCode){
-        return subjectRepository.findBySubject(subjectCode);
+        return subjectRepository.findBySubjectCode(subjectCode);
     }
 
     public boolean deleteSubject(int id){

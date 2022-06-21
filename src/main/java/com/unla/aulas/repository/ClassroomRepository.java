@@ -10,5 +10,6 @@ import com.unla.aulas.entity.ReservationEntity;
 
 @Repository
 public interface ClassroomRepository extends JpaRepository<ClassroomEntity, Integer>{
+    public abstract ClassroomEntity findByNumber(int number);
 
 }

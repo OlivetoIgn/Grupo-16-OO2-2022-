@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import com.unla.aulas.dto.ClassroomDto;
 import com.unla.aulas.entity.ClassroomEntity;
+import com.unla.aulas.entity.ShiftEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -83,6 +84,10 @@ public class ReservationService  {
 	public ArrayList<ReservationEntity> getReservationByDate(LocalDate date){
 		return reservationRepository.findByReservationDate(date);
 	}
+
+	public ArrayList<ReservationEntity> getReservationByShift(ShiftEntity shift){
+		return reservationRepository.findByShiftEntity(shift);
+	}
 	public boolean deleteReservation(int id) {
 		try {
 			reservationRepository.deleteById(id);
@@ -94,6 +99,17 @@ public class ReservationService  {
 
 	public List<ReservationEntity> getReservations(List<ReservationEntity> list) {
 		return (List<ReservationEntity>) getAllReservations();
+	}
+
+	public ArrayList<ReservationEntity> getReservationByClassroom(ClassroomEntity classroomEntity){
+		ArrayList<ReservationEntity> lstReservations = getAllReservations();
+		ArrayList<ReservationEntity> lstReservationsFiltered = new ArrayList<>();
+		for (ReservationEntity reserved: lstReservations) {
+			if(reserved.getClassroomEntity()!=null && reserved.getClassroomEntity().getId() == (classroomEntity.getId())){
+				lstReservationsFiltered.add(reserved);
+			}
+		}
+		return lstReservationsFiltered;
 	}
 
 }

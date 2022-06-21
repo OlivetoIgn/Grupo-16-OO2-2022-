@@ -43,10 +43,19 @@ public class SolicitudeService {
         return (ArrayList<SolicitudeEntity>)solicitudeRepository.findSolicitudeBySolicitudeDate(solicitudeDate);
     }
 
-    public SolicitudeEntity insertorupdate(SolicitudeEntity solicitudeEntity){
+    public SolicitudeEntity insertorupdate(SolicitudeEntity solicitudeEntity) {
         solicitudeEntity.setSolicitudeDate(Funciones.traerFecha());
-        solicitudeEntity.setSubjectEntity(subjectService.getSubjectEntityById(solicitudeEntity.getSubjectEntity().getId()).get());
-        solicitudeEntity.setClassroomEntity(classroomService.getClassroomEntityById(solicitudeEntity.getClassroomEntity().getId()).get());
+        if (solicitudeEntity.getSubjectEntity() != null){
+            if(solicitudeEntity.getSubjectEntity().getId() > 0) {
+            solicitudeEntity.setSubjectEntity(subjectService.getSubjectEntityById(solicitudeEntity.getSubjectEntity().getId()).get());
+        } else if (solicitudeEntity.getSubjectEntity().getSubjectCode() > 0) {
+            solicitudeEntity.setSubjectEntity(subjectService.getSubjectBySubjectCode(solicitudeEntity.getSubjectEntity().getSubjectCode()));
+        }
+        }
+        if (solicitudeEntity.getClassroomEntity() != null) {
+            if(solicitudeEntity.getClassroomEntity().getId() > 0){
+            solicitudeEntity.setClassroomEntity(classroomService.getClassroomEntityById(solicitudeEntity.getClassroomEntity().getId()).get());}
+        }
         ArrayList<ReservationEntity> lstReservations = reservationService.getReservationByDate(solicitudeEntity.getStartDate());
         for (ReservationEntity reserved: lstReservations) {
             if(reserved.isTaken() && reserved.getClassroomEntity().equals(solicitudeEntity.getClassroomEntity()) && reserved.getShiftEntity().equals(solicitudeEntity.getShiftEntity())){
