@@ -1,7 +1,7 @@
 -- al ejecutar la app crea las tablas
 -- ejecutar script 
 INSERT INTO users (user_name, password, document_type, document, email, name, surname) VALUES ('somemail@dummy.com', '$2a$10$Wt4nCM3XL8PmKlKTMh8m5eiPNLQcg30vlYSQr5NDb6JlNdEETIOdi', 'dni', 11223344, 'somemail@dummy.com', 'ignacio', 'oliveto');
-INSERT INTO users (user_name, password, document_type, document, email, name, surname) VALUES ('smartinez', '$2a$10$Wt4nCM3XL8PmKlKTMh8m5eiPNLQcg30vlYSQr5NDb6JlNdEETIOdi', 'dni', 33344421, 'smartinez@dummy.com', 'santiago', 'martinez');
+INSERT INTO users (user_name, password, document_type, document, email, name, surname) VALUES ('smartinez', 'perro1212', 'dni', 33344421, 'smartinez@dummy.com', 'santiago', 'martinez');
 insert into roles (name) values ('ADMIN');
 insert into roles (name) values ('AUDITORIA');
 insert into user_role (user_id, role_id) values (1,1);
