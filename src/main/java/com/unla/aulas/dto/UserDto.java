@@ -9,4 +9,9 @@ import lombok.NoArgsConstructor;
 public class UserDto {
     private String userName;
     private String password;
+    private String name;
+    private String surname;
+    private String documentType;
+    private String document;
+    private String email;
 }

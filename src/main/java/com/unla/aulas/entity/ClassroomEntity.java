@@ -41,7 +41,7 @@ public class ClassroomEntity {
     @Enumerated(value = EnumType.STRING)
     private ClassroomTypeEntity typeClassroom;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "building_id")
 	private BuildingEntity buildingEntity;
 	
