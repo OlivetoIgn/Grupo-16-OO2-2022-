@@ -9,8 +9,10 @@ import com.unla.aulas.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/person/")
@@ -30,7 +32,7 @@ public class PersonController {
 
     @PostMapping()
     public UserEntity saveUser(@RequestBody UserEntity json){
-        return personService.saveUser(json);
+                return personService.saveUser(json);
     }
 
     @GetMapping(path = "{id}")
@@ -54,8 +56,18 @@ public class PersonController {
         return personService.getUserByUsername(json.getUserName());
     }
 
-    @GetMapping("roles/")
-    public List<RoleEntity> getAllRoles(){
-        return roleRepository.findAll();
+    @PutMapping(path = "{id}")
+    public UserEntity updateUser(@PathVariable("id") int id, @RequestBody UserEntity json){
+        Optional<UserEntity> user = personService.getUserById(id);
+        Set<RoleEntity> roles = null;
+        roles.add(roleRepository.getById(json.getRoles().stream().findFirst().get().getId()));
+        user.get().setDocument(json.getDocument());
+        user.get().setDocumentType(json.getDocumentType());
+        user.get().setEmail(json.getEmail());
+        user.get().setName(json.getName());
+        user.get().setSurname(json.getSurname());
+        user.get().setPassword(json.getPassword());
+        user.get().setRoles(roles);
+        return personService.saveUser(user.get());
     }
 }
